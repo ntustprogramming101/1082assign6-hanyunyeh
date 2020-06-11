@@ -9,13 +9,12 @@ class Item {
 
 	void display(){
   
-    if(isAlive!=false)
-    image(img,x,y);
+    if(isAlive!=false) image(img,x,y);
 }
 
    Item(){}
   
-	void checkCollision(Player player){}{}
+	void checkCollision(Player player){}
  
   void Moveto(float x, float y){
 		
