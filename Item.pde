@@ -13,7 +13,6 @@ class Item {
     image(img,x,y);
 }
 
-  Item(){}
    Item(String filename)
  {
    img = loadImage(filename);
