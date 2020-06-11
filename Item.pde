@@ -14,11 +14,6 @@ class Item {
 }
 
    Item(){}
-   
-   Item(String filename)
- {
-   img = loadImage(filename);
- }
   
 	void checkCollision(Player player){}{}
  
