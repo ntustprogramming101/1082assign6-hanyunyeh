@@ -3,8 +3,7 @@ class Cabbage extends Item {
       
 			// Display Cabbage
 			Cabbage(){
-      
-      super("img/cabbage.png");
+			img = cabbage;
       }
        
 			// Check collision with player
