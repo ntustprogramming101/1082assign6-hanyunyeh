@@ -4,7 +4,7 @@ class Clock extends Item {
       // Display Cabbage
       Clock(){
         
-      super("img/clock.png");
+      img = clock;
       }
       
       // Check collision with player
