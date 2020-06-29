@@ -1,64 +1,51 @@
+
+
 class Dinosaur extends Enemy {
-	// Requirement #4: Complete Dinosaur Class
+  // Requirement #4: Complete Dinosaur Class
 
-	final float TRIGGERED_SPEED_MULTIPLIER = 5;
+  final float TRIGGERED_SPEED_MULTIPLIER = 5;
+  float speed = 1f;
+  boolean is = false;
+  PImage img;
 
-	// HINT: Player Detection in update()
+  // HINT: Player Detection in update()
+  float currentSpeed = speed;
 
-	/*
-	float currentSpeed = speed
-	If player is on the same row with me AND (it's on my right side when I'm going right OR on my left side when I'm going left){
-		currentSpeed *= TRIGGERED_SPEED_MULTIPLIER
-	}
-	*/
-  float speed = 2f/2;
-  int dinosaurMoveDirection = (speed > 0) ? RIGHT : LEFT;
-
-
-  
   void display(){
-    
-    if(speed >= 0) {
-    dinosaurMoveDirection = RIGHT;
-    }if(speed < 0) {
-    dinosaurMoveDirection = LEFT;
-    }
-    
-  pushMatrix();
-  translate(x , y);
-  if (dinosaurMoveDirection == RIGHT) {
-    scale(1, 1);
-    image(dinosaur, 0, 0, w, h); 
-  } else {
-    scale(-1, 1);
-    image(dinosaur, -w, 0, w, h); 
+     if (x < 0 || x > width - w) { 
+        currentSpeed *= -1 ;
+      }
+     int direction = ( currentSpeed > 0) ? RIGHT : LEFT;
+    pushMatrix();
+      translate(x, y);
+      if ( direction == RIGHT ) {
+        scale(1, 1);
+        image(img, 0, 0, w, h); 
+      } 
+      else {
+        scale(-1, 1);
+        image(img, -w, 0, w, h); 
+      }
+    popMatrix();
+    //image(dinosaur, x, y);
   }
-  popMatrix();
-    
-  }
-  
 
   void update(){
+    x += currentSpeed;
     
-    x += speed;
-    if(x >= width-w || x<=0 ) {
-      speed *=-1 ;
+    if( player.y == y &&  ((x+w < player.x && !is && currentSpeed>0) || (x > player.x && !is && currentSpeed<0))){
+      //println("aaaa\n");
+       currentSpeed *= TRIGGERED_SPEED_MULTIPLIER;
+       is = true;
     }
-    
-      if (y == player.y){
-        if(player.x >= x && dinosaurMoveDirection == RIGHT){
-            speed = TRIGGERED_SPEED_MULTIPLIER;
-            if(player.x <= x && dinosaurMoveDirection == LEFT ) {
-              speed = -TRIGGERED_SPEED_MULTIPLIER;
-            }
-        }
-      }
-      
-
- 
+    else if( is ){
+      currentSpeed /= TRIGGERED_SPEED_MULTIPLIER;
+      is = false;
+    }
   }
 
-  Dinosaur(float x, float y){
-    super(x, y);
+  Dinosaur( float x, float y ){
+    super( x,y );
+    img = dinosaur;
   }
 }
